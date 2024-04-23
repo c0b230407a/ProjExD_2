@@ -6,6 +6,21 @@ import random
 WIDTH, HEIGHT = 1600, 900
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+def bound (obj_rct)-> tuple[bool,bool]:
+
+    """
+    工科トンRectまたは爆弾Rectの画面または爆弾Rect内外反転用の関数
+    引数:こうかとん Rect
+    も土井r値:横方向判定結果,縦方向判定結果(Ture:画面内/False:画面外)
+    """
+    yoko,tate =True,True
+    if obj_rct.left<0 or obj_rct.right>WIDTH:
+        yoko = False
+    if obj_rct.top<0 or obj_rct.bottom>HEIGHT:
+        tate = False 
+    return yoko,tate
+
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -37,9 +52,18 @@ def main():
                 sum_mv[0]+=v[0]
                 sum_mv[1]+=v[1]
         kk_rct.move_ip(sum_mv)
+        if bound(kk_rct) !=(True,True):
+            kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
+
         bom_rct.move_ip(vx,vy)
+        yoko,tate=bound(bom_rct)
         screen.blit(kk_img, kk_rct)
         screen.blit(bom_img, bom_rct)
+        yoko,tate=bound(bom_rct)
+        if not yoko:
+            vx*=-1
+        if not tate:
+            vy*=-1
 
         pg.display.update()
         tmr += 1
