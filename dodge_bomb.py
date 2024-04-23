@@ -22,7 +22,7 @@ def bound (obj_rct)-> tuple[bool,bool]:
     return yoko,tate
 
 
-def kattoin():
+def kattoin():    
     pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
     kattoin_img=pg.Surface((WIDTH,HEIGHT))    
     font = pg.font.Font(None,80)
@@ -31,10 +31,10 @@ def kattoin():
     kattoin_rct.center=WIDTH/2,HEIGHT/2   #位置の設定
     txt=font.render("激熱",True,(255,255,255))    #文字の設定
     Brackout=pg.draw.rect(kattoin_img,(0,0,0),(0,0,WIDTH,HEIGHT))
-    clear_img=pg.Surface((WIDTH,HEIGHT))
+    clear_img=pg.Surface((WIDTH,HEIGHT))   
     clear_rct=clear_img.get_rect()
     clear_rct.center=WIDTH/2,HEIGHT/2
-    txt_c=font.render("クリア",True,(255,255,255))
+    txt_c=font.render("クリア",True,(255,255,255))      #GAME Clear の表示
     clear_=pg.draw.rect(clear_img,(0,0,0),(0,0,WIDTH,HEIGHT))
 
 def main():
