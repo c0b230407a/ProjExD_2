@@ -22,21 +22,20 @@ def bound (obj_rct)-> tuple[bool,bool]:
     return yoko,tate
 
 
-
-def Game_Over(Brackout,Brackout_rct,txt):
-    screen = pg.display.set_mode((WIDTH, HEIGHT))
+def kattoin():
+    pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
+    kattoin_img=pg.Surface((WIDTH,HEIGHT))    
     font = pg.font.Font(None,80)
-    txt=font.render("GAME OVER",True,(255,255,255))
-    Brackout_rct=WIDTH,HEIGHT
-    Brackout=pg.draw.rect(Brackout,(255,255,255),(WIDTH,HEIGHT))
-    clock=pg.time.Clock()
-    screen.blit(Brackout,Brackout_rct)
-    pg.time.wait(100)
-    pg.display.update()
-    pg.time.wait(100)
-    screen.blit(txt,[WIDTH/2,HEIGHT/2])
-    pg.display.update()
-
+    kattoin_img.set_alpha(160)  #半透明
+    kattoin_rct=kattoin_img.get_rect()
+    kattoin_rct.center=WIDTH/2,HEIGHT/2   #位置の設定
+    txt=font.render("激熱",True,(255,255,255))    #文字の設定
+    Brackout=pg.draw.rect(kattoin_img,(0,0,0),(0,0,WIDTH,HEIGHT))
+    clear_img=pg.Surface((WIDTH,HEIGHT))
+    clear_rct=clear_img.get_rect()
+    clear_rct.center=WIDTH/2,HEIGHT/2
+    txt_c=font.render("クリア",True,(255,255,255))
+    clear_=pg.draw.rect(clear_img,(0,0,0),(0,0,WIDTH,HEIGHT))
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -83,8 +82,28 @@ def main():
             pg.display.update()
             pg.time.wait(5000)  
             return 
+        key_1=pg.key.get_pressed()
+        if key_1[pg.K_SPACE]:    #スペースキーを押した時
+            pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
+            kattoin_img=pg.Surface((WIDTH,HEIGHT))    
+            font = pg.font.Font(None,80)
+            kattoin_rct=kattoin_img.get_rect()
+            kattoin_rct.center=WIDTH/2,HEIGHT/2   #位置の設定
+            txt_1=font.render("CLEAR",True,(255,255,255))    #文字の設定
+            Brackout=pg.draw.rect(kattoin_img,(0,0,0),(0,0,WIDTH,HEIGHT))
+            clear_img=pg.Surface((WIDTH,HEIGHT))
+            clear_rct=clear_img.get_rect()
+            clear_rct.center=WIDTH/2,HEIGHT/2
+            
+            screen.blit(kattoin_img,kattoin_rct)
+            screen.blit(txt_1,[WIDTH/2 - 170, HEIGHT/2 - 40])
+            pg.display.update()
+            pg.display.update()
+            pg.time.wait(6000) 
+            pg.display.update()
+            
 
-    
+            return 
         screen.blit(bg_img, [0, 0]) 
 
         key_lst = pg.key.get_pressed()
