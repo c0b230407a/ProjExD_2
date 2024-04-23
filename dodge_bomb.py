@@ -1,7 +1,7 @@
 import os
 import sys
 import pygame as pg
-
+import random
 
 WIDTH, HEIGHT = 1600, 900
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -16,6 +16,13 @@ def main():
     kk_rct.center = 900, 400
     clock = pg.time.Clock()
     tmr = 0
+    
+    bom_img= pg.Surface((20,20))
+    bom_rct=bom_img.get_rect()
+    bom_img.set_colorkey((0,0,0))
+    bom_rct.center=random.randint(0,WIDTH),random.randint(0,HEIGHT)
+    pg.draw.circle(bom_img,(255,0,0),(10,10),10)
+    vx,vy =+5,+5
     key_dic={pg.K_UP:(0,-5),pg.K_DOWN:(0,+5),pg.K_LEFT:(-5,0),pg.K_RIGHT:(+5,0)} #移動量辞書
     while True:
         for event in pg.event.get():
@@ -30,10 +37,14 @@ def main():
                 sum_mv[0]+=v[0]
                 sum_mv[1]+=v[1]
         kk_rct.move_ip(sum_mv)
+        bom_rct.move_ip(vx,vy)
         screen.blit(kk_img, kk_rct)
+        screen.blit(bom_img, bom_rct)
+
         pg.display.update()
         tmr += 1
         clock.tick(50)
+
 
 
 if __name__ == "__main__":
